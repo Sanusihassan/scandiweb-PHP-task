@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaShoppingCart, FaStore } from 'react-icons/fa';
+import ShopIcon from './icons/ShopIcon';
 
 interface HeaderState {
   cartVisible: boolean;
@@ -24,18 +25,18 @@ class Header extends Component<{}, HeaderState> {
 
     return (
       <header className="header">
-        <div className="categories">
-          <span className="category">Women</span>
-          <span className="category">Men</span>
-          <span className="category">Kids</span>
-        </div>
+        <ul className="categories">
+          <li className="category">Women</li>
+          <li className="category">Men</li>
+          <li className="category">Kids</li>
+        </ul>
 
-        <div className="shopIcon">
-          <FaStore className="icon" as any />
+        <div className="shop-icon">
+          <ShopIcon />
         </div>
 
         <div className="cart" onClick={this.handleCartClick}>
-          <FaShoppingCart className="icon" as any />
+          <FaShoppingCart />
           <div className={`cartDropdown ${cartVisible ? 'visible' : ''}`}>
             <span className="cartItem">No items in cart</span>
             {/* Add more cart items here */}

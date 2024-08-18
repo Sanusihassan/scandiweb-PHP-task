@@ -1,11 +1,17 @@
-import { Header } from "./components/Header";
 
-function App() {
-  return (
-    <div className="app">
-      <Header />
-    </div>
-  );
+import React, { Component } from 'react';
+import ShopIcon from './components/icons/ShopIcon';
+import Header from "./components/Header";
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="app">
+        <Header />
+      </div>
+    );
+  }
 }
 
 export default App;
