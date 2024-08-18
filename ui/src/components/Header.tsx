@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { FaShoppingCart, FaStore } from 'react-icons/fa';
+import { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import ShopIcon from './icons/ShopIcon';
+import CartIcon from './icons/CartIcon';
 
 interface HeaderState {
   cartVisible: boolean;
@@ -25,23 +26,51 @@ class Header extends Component<{}, HeaderState> {
 
     return (
       <header className="header">
-        <ul className="categories">
-          <li className="category">Women</li>
-          <li className="category">Men</li>
-          <li className="category">Kids</li>
-        </ul>
-
-        <div className="shop-icon">
-          <ShopIcon />
-        </div>
-
-        <div className="cart" onClick={this.handleCartClick}>
-          <FaShoppingCart />
-          <div className={`cartDropdown ${cartVisible ? 'visible' : ''}`}>
-            <span className="cartItem">No items in cart</span>
-            {/* Add more cart items here */}
-          </div>
-        </div>
+        <section className="container">
+          <nav className="nav">
+            <ul className="categories">
+              <li className="category">
+                <NavLink
+                  to="/women"
+                  className={({ isActive }: { isActive: boolean }) =>
+                    isActive ? "link active" : "link"
+                  }
+                >
+                  Women
+                </NavLink>
+              </li>
+              <li className="category">
+                <NavLink
+                  to="/men"
+                  className={({ isActive }: { isActive: boolean }) =>
+                    isActive ? "link active" : "link"
+                  }
+                >
+                  Men
+                </NavLink>
+              </li>
+              <li className="category">
+                <NavLink
+                  to="/kids"
+                  className={({ isActive }: { isActive: boolean }) =>
+                    isActive ? "link active" : "link"
+                  }
+                >
+                  Kids
+                </NavLink>
+              </li>
+            </ul>
+            <div className="shop-icon">
+              <ShopIcon />
+            </div>
+            <div className="cart" onClick={this.handleCartClick}>
+              <CartIcon />
+              <div className={`cart-dropdown${cartVisible ? ' visible' : ''}`}>
+                <span className="cartItem">No items in cart</span>
+              </div>
+            </div>
+          </nav>
+        </section>
       </header>
     );
   }

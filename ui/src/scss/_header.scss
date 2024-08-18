@@ -1,0 +1,57 @@
+.header {
+
+    .nav {
+        min-height: 80px;
+        @include extend("navbar");
+    }
+
+    .categories {
+
+        @include extend("nav");
+
+        .category {
+            @include extend("nav-item");
+
+            .link {
+                @include extend("nav-link");
+                color: black;
+                min-height: 56px;
+                border-bottom: 2px solid transparent;
+
+                &:hover {
+                    color: #5ECE7B
+                }
+
+                &.active {
+                    border-bottom-color: #5ECE7B;
+                    color: #5ECE7B
+                }
+            }
+        }
+    }
+
+    // .shop-icon {
+    //     // Styles for the shop icon
+    // }
+
+    .cart {
+
+        // Styles for the cart container
+        .cart-dropdown {
+            @include extend("position-absolute");
+
+            // Styles for the cart dropdown
+            &:not(.visible) {
+                @include extend("d-none");
+            }
+
+            &.visible {
+                @include extend("d-flex");
+            }
+
+            // .cartItem {
+            //     // Styles for each item in the cart dropdown
+            // }
+        }
+    }
+}
