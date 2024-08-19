@@ -1,0 +1,25 @@
+// Product list container
+.product-list {
+  @include extend("d-flex");
+  gap: 16px;
+
+  .product-card {
+    @include extend("card");
+
+    .product-image {
+      @include extend("card-img-top");
+    }
+
+    .product-info {
+      @include extend("card-body");
+
+      .product-name {
+        @include extend("card-title");
+      }
+
+      .product-price {
+        @include extend("card-text");
+      }
+    }
+  }
+}

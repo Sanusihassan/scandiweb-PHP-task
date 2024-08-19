@@ -31,7 +31,7 @@ class Header extends Component<{}, HeaderState> {
             <ul className="categories">
               <li className="category">
                 <NavLink
-                  to="/women"
+                  to="/category/women"
                   className={({ isActive }: { isActive: boolean }) =>
                     isActive ? "link active" : "link"
                   }
@@ -41,7 +41,7 @@ class Header extends Component<{}, HeaderState> {
               </li>
               <li className="category">
                 <NavLink
-                  to="/men"
+                  to="/category/men"
                   className={({ isActive }: { isActive: boolean }) =>
                     isActive ? "link active" : "link"
                   }
@@ -51,7 +51,7 @@ class Header extends Component<{}, HeaderState> {
               </li>
               <li className="category">
                 <NavLink
-                  to="/kids"
+                  to="/category/kids"
                   className={({ isActive }: { isActive: boolean }) =>
                     isActive ? "link active" : "link"
                   }
