@@ -12,6 +12,10 @@ body {
   @include extend("container");
 }
 
+._p4 {
+  @include extend("p-4")
+}
+
 
 @import "./scss/header";
 @import "./scss/product-list";

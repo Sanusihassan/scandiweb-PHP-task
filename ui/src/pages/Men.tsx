@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Men extends Component {
     render() {
-        return <div>Men Category Page</div>;
+        return <div className="container">Men Category Page</div>;
     }
 }
 

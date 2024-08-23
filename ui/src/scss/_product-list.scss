@@ -1,24 +1,37 @@
-// Product list container
 .product-list {
   @include extend("d-flex");
   gap: 16px;
 
   .product-card {
-    @include extend("card");
+    transition: .3s box-shadow;
+
+    &:hover {
+      @include extend("shadow");
+    }
+
+    padding: 16px;
+
 
     .product-image {
-      @include extend("card-img-top");
+      @include extend("img-fluid max-width");
     }
 
     .product-info {
-      @include extend("card-body");
 
       .product-name {
-        @include extend("card-title");
+        font-family: Raleway;
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 28.8px;
       }
 
       .product-price {
-        @include extend("card-text");
+        //styleName: --price-regular-font;
+        font-family: Raleway;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 28.8px;
+        text-align: right;
       }
     }
   }
