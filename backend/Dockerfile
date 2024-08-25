@@ -1,4 +1,4 @@
-# Use the official PHP image from the Docker Hub
+# this is the php's dockerfile:
 FROM php:8.1-cli
 
 # Install system dependencies and PHP extensions
@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     git \
     unzip \
+    libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd
+    && docker-php-ext-install gd pdo pdo_mysql
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

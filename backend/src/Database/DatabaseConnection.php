@@ -31,7 +31,8 @@ class DatabaseConnection
         $pass = $_ENV['DB_PASS'];
         $charset = 'utf8mb4';
 
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        // First, connect without specifying a database
+        $dsn = "mysql:host=$host;charset=$charset";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -40,6 +41,15 @@ class DatabaseConnection
 
         try {
             $this->connection = new PDO($dsn, $user, $pass, $options);
+
+            // Check if database exists, create if it doesn't
+            $stmt = $this->connection->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$db'");
+            if (!$stmt->fetch()) {
+                $this->connection->exec("CREATE DATABASE `$db`");
+            }
+
+            // Now connect to the specific database
+            $this->connection->exec("USE `$db`");
         } catch (PDOException $e) {
             throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
