@@ -1,15 +1,12 @@
-CREATE DATABASE shop_db;
-
-USE shop_db;
-
 -- Categories Table
-CREATE TABLE categories (
+CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) NOT NULL,
+    UNIQUE KEY (name)
 );
 
 -- Products Table
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     id VARCHAR(50) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     inStock BOOLEAN NOT NULL,
@@ -20,7 +17,7 @@ CREATE TABLE products (
 );
 
 -- Gallery Table
-CREATE TABLE product_gallery (
+CREATE TABLE IF NOT EXISTS product_gallery (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id VARCHAR(50),
     image_url TEXT NOT NULL,
@@ -28,15 +25,14 @@ CREATE TABLE product_gallery (
 );
 
 -- Attributes Table
-
-CREATE TABLE attributes (
+CREATE TABLE IF NOT EXISTS attributes (
     id VARCHAR(50) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     type ENUM('text', 'swatch') NOT NULL
 );
 
 -- Attribute Items Table
-CREATE TABLE attribute_items (
+CREATE TABLE IF NOT EXISTS attribute_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     attribute_id VARCHAR(50),
     display_value VARCHAR(50) NOT NULL,
@@ -44,7 +40,7 @@ CREATE TABLE attribute_items (
     FOREIGN KEY (attribute_id) REFERENCES attributes(id)
 );
 
-CREATE TABLE product_attributes (
+CREATE TABLE IF NOT EXISTS product_attributes (
     product_id VARCHAR(50),
     attribute_id VARCHAR(50),
     PRIMARY KEY (product_id, attribute_id),
@@ -53,7 +49,7 @@ CREATE TABLE product_attributes (
 );
 
 -- Prices Table
-CREATE TABLE prices (
+CREATE TABLE IF NOT EXISTS prices (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id VARCHAR(50),
     amount DECIMAL(10, 2) NOT NULL,
