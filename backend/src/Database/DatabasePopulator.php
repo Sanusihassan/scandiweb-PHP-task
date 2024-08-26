@@ -27,7 +27,7 @@ class DatabasePopulator
         try {
             $this->populateCategories($data['data']['categories']);
             $this->populateProducts($data['data']['products']);
-            
+
             $this->db->commit();
         } catch (\Exception $e) {
             $this->db->rollBack();
@@ -45,20 +45,26 @@ class DatabasePopulator
 
     private function populateProducts(array $products)
     {
-        $stmtProduct = $this->db->prepare("INSERT INTO products (id, name, inStock, description, category, brand) VALUES (:id, :name, :inStock, :description, :category, :brand)");
+        $stmtProduct = $this->db->prepare("INSERT INTO products (id, name, inStock, description, category_id, brand) VALUES (:id, :name, :inStock, :description, :category_id, :brand)");
         $stmtGallery = $this->db->prepare("INSERT INTO product_gallery (product_id, image_url) VALUES (:product_id, :image_url)");
         $stmtAttribute = $this->db->prepare("INSERT IGNORE INTO attributes (id, name, type) VALUES (:id, :name, :type)");
         $stmtAttributeItem = $this->db->prepare("INSERT INTO attribute_items (attribute_id, display_value, value) VALUES (:attribute_id, :display_value, :value)");
         $stmtProductAttribute = $this->db->prepare("INSERT INTO product_attributes (product_id, attribute_id) VALUES (:product_id, :attribute_id)");
         $stmtPrice = $this->db->prepare("INSERT INTO prices (product_id, amount, currency_label, currency_symbol) VALUES (:product_id, :amount, :currency_label, :currency_symbol)");
+        $stmtGetCategoryId = $this->db->prepare("SELECT id FROM categories WHERE name = :name");
 
         foreach ($products as $product) {
+            // Get category_id
+            $stmtGetCategoryId->execute(['name' => $product['category']]);
+            $category = $stmtGetCategoryId->fetch(\PDO::FETCH_ASSOC);
+            $category_id = $category ? $category['id'] : null;
+
             $stmtProduct->execute([
                 'id' => $product['id'],
                 'name' => $product['name'],
-                'inStock' => $product['inStock'],
+                'inStock' => $product['inStock'] ? 1 : 0,  // Convert boolean to integer
                 'description' => $product['description'],
-                'category' => $product['category'],
+                'category_id' => $category_id,
                 'brand' => $product['brand']
             ]);
 

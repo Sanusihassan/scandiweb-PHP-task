@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS shop_db;
+
+USE shop_db;
+
 -- Categories Table
 CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -11,9 +15,9 @@ CREATE TABLE IF NOT EXISTS products (
     name VARCHAR(100) NOT NULL,
     inStock BOOLEAN NOT NULL,
     description TEXT,
-    category VARCHAR(50),
+    category_id INT,
     brand VARCHAR(50),
-    FOREIGN KEY (category) REFERENCES categories(name)
+    FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
 -- Gallery Table

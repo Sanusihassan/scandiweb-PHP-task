@@ -1,3 +1,4 @@
+<!-- Database Error: SQLSTATE[HY000]: General error: 1822 Failed to add the foreign key constraint. Missing index for constraint 'products_ibfk_1' in the referenced table 'categories' -->
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 use App\Database\DatabaseConnection;
@@ -13,7 +14,7 @@ $pdo = $dbConnection->getConnection();
 
 try {
     // Read the SQL file
-    $sql = file_get_contents(__DIR__ . '/../schemas.sql');
+    $sql = file_get_contents(__DIR__ . '/../setup.sql');
     
     // Split the SQL file into individual statements
     $statements = array_filter(array_map('trim', explode(';', $sql)));
