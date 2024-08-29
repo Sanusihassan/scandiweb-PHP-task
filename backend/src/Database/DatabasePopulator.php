@@ -22,7 +22,9 @@ class DatabasePopulator
             throw new \RuntimeException('Invalid JSON file');
         }
 
-        $this->db->beginTransaction();
+        if (!$this->db->inTransaction()) {
+            $this->db->beginTransaction();
+        }
 
         try {
             $this->populateCategories($data['data']['categories']);
@@ -62,7 +64,7 @@ class DatabasePopulator
             $stmtProduct->execute([
                 'id' => $product['id'],
                 'name' => $product['name'],
-                'inStock' => $product['inStock'] ? 1 : 0,  // Convert boolean to integer
+                'inStock' => $product['inStock'],
                 'description' => $product['description'],
                 'category_id' => $category_id,
                 'brand' => $product['brand']
