@@ -9,56 +9,52 @@ use GraphQL\Type\Schema;
 use GraphQL\Type\SchemaConfig;
 use RuntimeException;
 use Throwable;
+use App\GraphQL\Query\RootQuery;
+use App\GraphQL\Mutation\RootMutation;
+use App\GraphQL\Type\ProductType;
+use App\GraphQL\Type\CategoryType;
 
-class GraphQL {
-    static public function handle() {
+class GraphQL
+{
+    static public function handle()
+    {
         try {
             $queryType = new ObjectType([
                 'name' => 'Query',
                 'fields' => [
-                    'echo' => [
-                        'type' => Type::string(),
-                        'args' => [
-                            'message' => ['type' => Type::string()],
-                        ],
-                        'resolve' => static fn ($rootValue, array $args): string => $rootValue['prefix'] . $args['message'],
+                    'categories' => [
+                        'type' => Type::listOf(CategoryType::getType()),
+                        'resolve' => [RootQuery::class, 'categories'],
+                    ],
+                    'products' => [
+                        'type' => Type::listOf(ProductType::getType()),
+                        'resolve' => [RootQuery::class, 'products'],
                     ],
                 ],
             ]);
-        
+
             $mutationType = new ObjectType([
                 'name' => 'Mutation',
                 'fields' => [
-                    'sum' => [
-                        'type' => Type::int(),
-                        'args' => [
-                            'x' => ['type' => Type::int()],
-                            'y' => ['type' => Type::int()],
-                        ],
-                        'resolve' => static fn ($calc, array $args): int => $args['x'] + $args['y'],
-                    ],
+                    // You can add mutations here if needed
                 ],
             ]);
-        
-            // See docs on schema options:
-            // https://webonyx.github.io/graphql-php/schema-definition/#configuration-options
-            $schema = new Schema(
-                (new SchemaConfig())
+
+            $schema = new Schema((new SchemaConfig())
                 ->setQuery($queryType)
                 ->setMutation($mutationType)
             );
-        
+
             $rawInput = file_get_contents('php://input');
             if ($rawInput === false) {
                 throw new RuntimeException('Failed to get php://input');
             }
-        
+
             $input = json_decode($rawInput, true);
             $query = $input['query'];
             $variableValues = $input['variables'] ?? null;
-        
-            $rootValue = ['prefix' => 'You said: '];
-            $result = GraphQLBase::executeQuery($schema, $query, $rootValue, null, $variableValues);
+
+            $result = GraphQLBase::executeQuery($schema, $query, null, null, $variableValues);
             $output = $result->toArray();
         } catch (Throwable $e) {
             $output = [

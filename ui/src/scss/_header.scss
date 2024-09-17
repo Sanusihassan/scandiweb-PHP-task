@@ -1,57 +1,145 @@
 .header {
+  @include extend("position-relative");
+  .nav {
+    min-height: 80px;
+    @include extend("navbar");
+  }
 
-    .nav {
-        min-height: 80px;
-        @include extend("navbar");
-    }
+  .categories {
+    @include extend("nav");
 
-    .categories {
+    .category {
+      @include extend("nav-item");
 
-        @include extend("nav");
+      .link {
+        @include extend("nav-link");
+        color: black;
+        min-height: 56px;
+        border-bottom: 2px solid transparent;
 
-        .category {
-            @include extend("nav-item");
-
-            .link {
-                @include extend("nav-link");
-                color: black;
-                min-height: 56px;
-                border-bottom: 2px solid transparent;
-
-                &:hover {
-                    color: #5ECE7B
-                }
-
-                &.active {
-                    border-bottom-color: #5ECE7B;
-                    color: #5ECE7B
-                }
-            }
+        &:hover {
+          color: #5ece7b;
         }
-    }
 
-    // .shop-icon {
-    //     // Styles for the shop icon
-    // }
-
-    .cart {
-
-        // Styles for the cart container
-        .cart-dropdown {
-            @include extend("position-absolute");
-
-            // Styles for the cart dropdown
-            &:not(.visible) {
-                @include extend("d-none");
-            }
-
-            &.visible {
-                @include extend("d-flex");
-            }
-
-            // .cartItem {
-            //     // Styles for each item in the cart dropdown
-            // }
+        &.active {
+          border-bottom-color: #5ece7b;
+          color: #5ece7b;
         }
+      }
     }
+  }
+
+  .cart {
+    .dropdown-wrapper {
+      @include extend("position-absolute");
+      min-height: 100vh;
+      top: 80px;
+      left: -7%;
+      right: 5px;
+      width: 113%;
+      @include xs {
+        width: 110%;
+      }
+      &.visible {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      .cart-dropdown {
+        @include extend("position-absolute bg-white border rounded p-3");
+        top: 0;
+        right: 0;
+        width: 320px;
+        z-index: 10;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+        &:not(.visible) {
+          @include extend("d-none");
+        }
+  
+        &.visible {
+          @include extend("d-block");
+        }
+  
+        h5 {
+          @include extend("font-weight-bold mb-3");
+        }
+  
+        .cart-item {
+          @include extend("d-flex align-items-start mb-4");
+  
+          .item-details {
+            @include extend("flex-grow-1 mr-2");
+  
+            .item-title {
+              @include extend("font-weight-bold mb-1");
+            }
+  
+            .item-price {
+              @include extend("mb-2");
+            }
+  
+            .item-size,
+            .item-color {
+              @include extend("mb-1 d-flex align-items-center");
+  
+              span {
+                @include extend("mr-2 text-muted");
+              }
+
+  
+              .item-color-button {
+                @include extend("btn btn-sm");
+                width: 25px;
+                height: 25px;
+                margin-right: 5px;
+  
+                
+              }
+
+            }
+  
+            .quantity-control {
+              @include extend("d-flex align-items-center");
+  
+              .quantity-decrease,
+              .quantity-increase {
+                @include extend("btn btn-outline-secondary btn-sm");
+                @include extend("mx-1");
+              }
+  
+              .quantity-input {
+                @include extend(
+                  "form-control form-control-sm text-center w-25 mx-1"
+                );
+              }
+            }
+          }
+  
+          .item-image {
+            @include extend("mr-2");
+            img {
+              width: 121px;
+              height: 167px;
+              @include extend("border rounded");
+            }
+          }
+        }
+  
+        .cart-total {
+          @include extend(
+            "d-flex justify-content-between font-weight-bold mt-4 mb-3"
+          );
+        }
+        .cart-btn {
+          @include extend("btn btn-outline-secondary btn-sm ml-1");
+        }
+        .btn-light-sm {
+          @include extend("btn btn-light btn-sm")
+        }
+  
+        .checkout-btn {
+          @include extend("btn btn-success btn-block w-100");
+        }
+      }
+    }
+  }
 }
