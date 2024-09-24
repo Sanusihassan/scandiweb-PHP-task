@@ -5,7 +5,7 @@ namespace App\GraphQL\Type;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
-class CategoryType
+class PriceType
 {
     private static $type;
 
@@ -13,9 +13,10 @@ class CategoryType
     {
         if (self::$type === null) {
             self::$type = new ObjectType([
-                'name' => 'Category',
+                'name' => 'Price',
                 'fields' => [
-                    'name' => Type::nonNull(Type::string()),
+                    'amount' => Type::nonNull(Type::float()),
+                    'currency' => Type::nonNull(CurrencyType::getType()),
                 ],
             ]);
         }

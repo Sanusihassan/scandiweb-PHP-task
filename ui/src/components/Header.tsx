@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import ShopIcon from './icons/ShopIcon';
 import CartIcon from './icons/CartIcon';
+import Cart from './Cart/Cart';
 
 interface HeaderState {
   cartVisible: boolean;
@@ -63,12 +64,7 @@ class Header extends Component<{}, HeaderState> {
             <div className="shop-icon">
               <ShopIcon />
             </div>
-            <div className="cart" onClick={this.handleCartClick}>
-              <CartIcon />
-              <div className={`cart-dropdown${cartVisible ? ' visible' : ''}`}>
-                <span className="cartItem">No items in cart</span>
-              </div>
-            </div>
+          <Cart handleCartClick={this.handleCartClick} cartVisible={this.state.cartVisible} />
           </nav>
         </section>
       </header>
