@@ -13,7 +13,7 @@ class Cart extends Component<CartProps> {
 
     return (
       <div className="cart">
-        <CartIcon onClick={handleCartClick} />
+        <CartIcon onClick={handleCartClick} data-testid='cart-btn' />
         <div className={`dropdown-wrapper${cartVisible ? " visible" : ""}`}>
           <div className={`cart-dropdown${cartVisible ? " visible" : ""}`}>
             <h5>My Bag, 3 items</h5>
